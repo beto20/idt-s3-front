@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102321">
+  <title>Panel de productos y órdenes</title>
+  <meta name="description" content="Gestiona productos y órdenes desde una sola pantalla.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" type="module"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div class="hero-top">
+        <span class="brand-mark" aria-hidden="true">ID</span>
+        <span class="brand-name">IDAT <span>·</span> Comercio</span>
+        <span class="eyebrow">Panel de gestión</span>
+      </div>
+      <div class="hero-main">
+        <div>
+          <p class="kicker">OPERACIÓN EN UNA SOLA VISTA</p>
+          <h1>Productos y órdenes,<br><em>en un solo lugar.</em></h1>
+          <p class="hero-copy">Consulta el catálogo, registra productos y prepara nuevas órdenes sin cambiar de pantalla.</p>
+        </div>
+        <div class="metrics" aria-label="Resumen">
+          <div class="metric"><strong id="product-count">—</strong><span>Productos</span></div>
+          <div class="metric"><strong id="order-count">—</strong><span>Órdenes</span></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="panel product-panel" aria-labelledby="products-title">
+        <div class="section-heading">
+          <div><p class="section-index">01 / CATÁLOGO</p><h2 id="products-title">Productos</h2></div>
+          <button id="reload-products" class="text-button" type="button">Actualizar <span aria-hidden="true">↗</span></button>
+        </div>
+        <p class="section-description">Selecciona un producto para añadirlo a la orden.</p>
+        <p id="product-status" class="status" role="status" aria-live="polite"></p>
+        <div id="product-list" class="product-list" aria-live="polite"></div>
+
+        <details class="form-disclosure" id="new-product-disclosure">
+          <summary><span class="summary-plus" aria-hidden="true">+</span><span>Registrar un producto</span><span class="summary-arrow" aria-hidden="true">↗</span></summary>
+          <form id="product-form" class="form-grid">
+            <label class="field full">Nombre <input name="name" type="text" maxlength="100" required placeholder="Ej. Teclado mecánico"></label>
+            <label class="field full">Descripción <textarea name="description" rows="2" maxlength="300" required placeholder="Características principales"></textarea></label>
+            <label class="field">Stock <input name="stock" type="number" min="0" step="1" required placeholder="0"></label>
+            <label class="field">Precio <input name="price" type="number" min="0.01" step="0.01" required placeholder="0.00"></label>
+            <button class="primary-button full" type="submit">Guardar producto <span aria-hidden="true">↗</span></button>
+            <p id="product-form-status" class="form-status full" role="status" aria-live="polite"></p>
+          </form>
+        </details>
+      </section>
+
+      <section class="panel order-panel" aria-labelledby="orders-title">
+        <div class="section-heading">
+          <div><p class="section-index">02 / ÓRDENES</p><h2 id="orders-title">Órdenes</h2></div>
+          <button id="reload-orders" class="text-button" type="button">Actualizar <span aria-hidden="true">↗</span></button>
+        </div>
+        <p class="section-description">Arma una orden con los productos del catálogo.</p>
+
+        <form id="order-form" class="order-builder">
+          <div class="form-grid">
+            <label class="field">Nombre del cliente <input name="clientName" type="text" maxlength="80" autocomplete="given-name" required placeholder="Nombre"></label>
+            <label class="field">Apellido del cliente <input name="clientLastname" type="text" maxlength="80" autocomplete="family-name" required placeholder="Apellido"></label>
+          </div>
+          <div class="cart-heading"><h3>Productos de la orden</h3><span id="cart-count">0 artículos</span></div>
+          <div id="cart-list" class="cart-list"><p class="empty-cart">Tu orden está vacía. Añade productos desde el catálogo.</p></div>
+          <div class="order-total"><span>Total estimado</span><strong id="cart-total">0.00</strong></div>
+          <button id="submit-order" class="primary-button" type="submit" disabled>Registrar orden <span aria-hidden="true">↗</span></button>
+          <p id="order-form-status" class="form-status" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="history-heading"><h3>Órdenes registradas</h3><span id="history-count">—</span></div>
+        <p id="order-status" class="status" role="status" aria-live="polite"></p>
+        <div id="order-list" class="order-list" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer>Panel local conectado a los microservicios de producto y orden.</footer>
+  </div>
+</body>
+</html>
